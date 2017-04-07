@@ -1,11 +1,13 @@
+// == ヘッダファイルの読み込み ========
 #include "HelloWorldScene.h"
 #include "cocostudio/CocoStudio.h"
 #include "ui/CocosGUI.h"
 
+// == 名前空間の指定 ==================
 USING_NS_CC;
-
 using namespace cocostudio::timeline;
 
+// == メンバ関数の定義 ================
 Scene* HelloWorld::createScene()
 {
     // 'scene' is an autorelease object
