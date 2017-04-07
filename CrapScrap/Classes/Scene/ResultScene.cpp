@@ -22,9 +22,9 @@ bool ResultScene::init()
 	}
 
 	// 背景画像
-	//Sprite* background = Sprite::create("title.png");
-	//background->setPosition(480, 320);
-	//this->addChild(background);
+	//Sprite* pBackground = Sprite::create("title.png");
+	//pBackground->setPosition(480, 320);
+	//this->addChild(pBackground);
 
 	// 毎フレーム更新を有効化
 	scheduleUpdate();
@@ -59,6 +59,7 @@ void ResultScene::update(float delta)
 //-----------------------------------------------
 bool ResultScene::onTouchBegan(Touch* touch, Event* pEvent)
 {
+	TransScene();
 	return true;
 }
 

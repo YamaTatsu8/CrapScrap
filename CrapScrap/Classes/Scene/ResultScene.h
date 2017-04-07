@@ -3,6 +3,7 @@
 
 // == ヘッダファイルの読み込み ========
 #include "cocos2d.h"
+#include "HelloWorldScene.h"
 
 // == クラスの宣言 ====================
 class ResultScene : public cocos2d::Scene
