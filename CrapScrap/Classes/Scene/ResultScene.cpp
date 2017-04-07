@@ -1,11 +1,17 @@
-//ヘッダファイルの読み込み
+// == ヘッダファイルの読み込み ========
 #include "ResultScene.h"
 #include "TitleScene.h"
 
+// == 名前空間の指定 ==================
 USING_NS_CC;
 
-
-// 初期化
+//-----------------------------------------------
+//! @brief 初期化処理
+//!
+//! @param[in] なし
+//!
+//! @return 終了状態
+//-----------------------------------------------
 bool ResultScene::init()
 {
 	// 基底クラスの初期化
@@ -32,19 +38,41 @@ bool ResultScene::init()
 	return true;
 }
 
-// 毎フレーム更新
+//-----------------------------------------------
+//! @brief 毎フレームの更新処理
+//!
+//! @param[in] 引数
+//!
+//! @return なし
+//-----------------------------------------------
 void ResultScene::update(float delta)
 {
 
 }
 
-// タッチ開始時コールバック
+//-----------------------------------------------
+//! @brief タッチ開始時処理
+//!
+//! @param[in] 引数
+//!
+//! @return 以降のタッチ処理を行うかどうか
+//-----------------------------------------------
 bool ResultScene::onTouchBegan(Touch* touch, Event* pEvent)
+{
+	return true;
+}
+
+//-----------------------------------------------
+//! @brief シーン遷移処理
+//!
+//! @param[in] なし
+//!
+//! @return なし
+//-----------------------------------------------
+void ResultScene::TransScene()
 {
 	// 次のシーンを作成する
 	Scene* nextScene = TitleScene::create();
 	// 次のシーンに移行
 	_director->replaceScene(nextScene);
-
-	return true;
 }
