@@ -28,20 +28,28 @@ bool Floor::init()
 		else if (m_Tip[i / 120][i % 120] == 1)
 		{
 			//1だった場合床を表示
+			m_floor[floorNum] = Node::create();
+			m_floor[floorNum]->setPosition((i % 120)*32.0f, 960.0f - 32 * (i / 120));
+			this->addChild(m_floor[floorNum]);
+
 			floor[floorNum] = CCSprite::create("floor.png");
 			floor[floorNum]->setPositionX((i % 120)*32.0f);
 			floor[floorNum]->setPositionY(960.0f - 32 * (i / 120));
 
-			this->addChild(floor[floorNum]);
+			m_floor[floorNum]->addChild(floor[floorNum]);
 			floorNum++;
 		}
 		else if (m_Tip[i / 120][i % 120] == 2)
 		{
+			m_press[i] = Node::create();
+			m_press[i]->setPosition((i % 120)*32.0f, 960.0f - 32 * (i / 120));
+			this->addChild(m_press[i]);
+
 			//2だった場合プレスを表示
 			press[i] = CCSprite::create("press.png");
 			press[i]->setPositionX((i % 120)*32.0f);
 			press[i]->setPositionY(960.0f - 32 * (i / 120));
-			this->addChild(press[i]);
+			m_floor[i]->addChild(press[i]);
 		}
 		else if (m_Tip[i / 120][i % 120] == 3)
 		{
@@ -96,8 +104,79 @@ bool Floor::init()
 	return true;
 }
 
+//プレス機が落ちてくる
 void Floor::Collapse(int num)
 {
+	int i = 0;
+
+	for (i = 0; i < PRESS_MAX; i++)
+	{
+		press[i];
+	}
+
+	MoveBy* down = MoveBy::create(10.0f, Vec2(0, 960));
+
+	press[i]->runAction(down);
+}
+
+//床の消失
+void Floor::FloorCollapse()
+{
+	int i = 0;
+	Rect rect_floor[FLOOR_MAX];
+	Rect rect_press[PRESS_MAX];
+
+	for ( i = 0; i < FLOOR_MAX; i++)
+	{
+		rect_floor[i] = floor[i]->getBoundingBox();
+	}
+	for ( i = 0; i < PRESS_MAX; i++)
+	{
+		rect_press[i] = press[i]->getBoundingBox();
+	}
+
+	Node* parent[2000];
+	parent[i] = m_floor[i]->getParent();
+	rect_floor[i] = RectApplyAffineTransform(rect_floor[i], parent[i]->getNodeToWorldAffineTransform());
+	
+	parent[i] = m_press[i]->getParent();
+	rect_press[i] = RectApplyAffineTransform(rect_press[i], parent[i]->getNodeToWorldAffineTransform());
+
+	//矩形どうしの当たり判定
+	bool hit = rect_floor[i].intersectsRect(rect_press[i]);
+
+	//当たった場合
+	if (hit)
+	{
+		floor[i]->setVisible(false);
+
+		Point pos(floor[i]->getPosition());
+
+		ParticleSystemQuad* pSys;
+
+		//パーティクルの指定(plistファイル読み込み)
+		pSys = ParticleSystemQuad::create("particle_texture.plist");
+
+		//座標指定
+		pSys->setPosition(pos);
+
+		//再生後に削除する設定
+		pSys->setAutoRemoveOnFinish(true);
+
+		this->addChild(pSys);
+
+	}
+
+
+}
+
+//エレベータの上昇
+void Floor::rising()
+{
+	//3秒かけてｙ分上昇する
+	MoveBy* rising = MoveBy::create(3, Vec2(0, 400));
+
+	elevator->runAction(rising);
 
 }
 

@@ -31,6 +31,12 @@ private:
 	//チップ
 	int m_Tip[HEIGHT][WIGHT];
 
+	//
+	cocos2d::Node* m_floor[FLOOR_MAX];
+	//
+	cocos2d::Node* m_press[PRESS_MAX];
+
+
 public:
 
 	CREATE_FUNC(Floor);
@@ -64,5 +70,11 @@ public:
 
 	//マップの読み込み
 	void importData(std::string fileName);
+
+	//エレベーターの上昇
+	void rising();
+
+	//床の消失
+	void FloorCollapse();
 
 };
