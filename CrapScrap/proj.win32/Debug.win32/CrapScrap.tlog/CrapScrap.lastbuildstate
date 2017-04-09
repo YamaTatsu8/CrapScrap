@@ -1,2 +1,6 @@
 #TargetFrameworkVersion=v4.0:PlatformToolSet=v140:EnableManagedIncrementalBuild=false:VCToolArchitecture=Native32Bit:WindowsTargetPlatformVersion=8.1
+<<<<<<< HEAD
 Debug|Win32|C:\Users\s162129\Desktop\CrapScrap\CrapScrap\proj.win32\|
+=======
+Debug|Win32|C:\Users\s162191\Documents\CrapScrap\CrapScrap\proj.win32\|
+>>>>>>> 382d710cdba8c63d66609aa0d7d18457b7c004d1
