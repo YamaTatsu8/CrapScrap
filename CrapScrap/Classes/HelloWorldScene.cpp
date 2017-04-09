@@ -3,6 +3,7 @@
 #include "cocostudio/CocoStudio.h"
 #include "ui/CocosGUI.h"
 
+
 // == –¼‘O‹óŠÔ‚ÌŽw’è ==================
 USING_NS_CC;
 using namespace cocostudio::timeline;
@@ -78,7 +79,7 @@ bool HelloWorld::init()
     // add the sprite as a child to this layer
     this->addChild(sprite, 0);
     **/
-    
+
     //////////////////////////////
     // 1. super init first
     if ( !Layer::init() )
@@ -87,6 +88,8 @@ bool HelloWorld::init()
     }
     
     auto rootNode = CSLoader::createNode("MainScene.csb");
+
+	
 
     addChild(rootNode);
 
