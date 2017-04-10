@@ -36,12 +36,15 @@ bool PlayScene::init()
 
 	// インスタンスを生成
 	m_pFloor = new Floor();
+	m_pPlayer = new Player();
 
 	// シーンにつなぐ
 	this->addChild(m_pFloor);
+	this->addChild(m_pPlayer);
 
 	// 初期設定
 	m_pFloor->init();
+	m_pPlayer->init();
 
 	// プレス機の設定
 	schedule(CC_CALLBACK_0(Floor::Collapse, m_pFloor), 2.0f, "0");

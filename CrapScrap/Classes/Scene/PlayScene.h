@@ -5,12 +5,14 @@
 #include "cocos2d.h"
 #include "HelloWorldScene.h"
 #include "Floor\Floor.h"
+#include "Player\Player.h"
 
 // == クラスの宣言 ====================
 class PlayScene : public cocos2d::Scene
 {
 	// インスタンス
 	Floor* m_pFloor;
+	Player* m_pPlayer;
 
 public:
 	// メンバ関数 ///////////
