@@ -151,6 +151,8 @@ xcopy /Y /Q "$(COCOS_X_ROOT)\cocos2d-x-3.10\prebuilt\win32\*.*" "$(OutDir)"
     <ClCompile Include="..\Classes\Scene\PlayScene.cpp" />
     <ClCompile Include="..\Classes\Scene\ResultScene.cpp" />
     <ClCompile Include="..\Classes\Scene\TitleScene.cpp" />
+    <ClCompile Include="..\Classes\Scene\TransitionClose.cpp" />
+    <ClCompile Include="..\Classes\Scene\TransitionOpen.cpp" />
     <ClCompile Include="main.cpp" />
   </ItemGroup>
   <ItemGroup>
@@ -159,6 +161,8 @@ xcopy /Y /Q "$(COCOS_X_ROOT)\cocos2d-x-3.10\prebuilt\win32\*.*" "$(OutDir)"
     <ClInclude Include="..\Classes\Scene\PlayScene.h" />
     <ClInclude Include="..\Classes\Scene\ResultScene.h" />
     <ClInclude Include="..\Classes\Scene\TitleScene.h" />
+    <ClInclude Include="..\Classes\Scene\TransitionClose.h" />
+    <ClInclude Include="..\Classes\Scene\TransitionOpen.h" />
     <ClInclude Include="main.h" />
   </ItemGroup>
   <ItemGroup>

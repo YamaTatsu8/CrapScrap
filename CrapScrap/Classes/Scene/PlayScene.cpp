@@ -41,7 +41,7 @@ void PlayScene::update(float delta)
 bool PlayScene::onTouchBegan(Touch* touch, Event* pEvent)
 {
 	// 次のシーンを作成する
-	Scene* nextScene = ResultScene::create();
+	Scene* nextScene = ResultScene::create(GameClear);
 	// 次のシーンに移行
 	_director->replaceScene(nextScene);
 
