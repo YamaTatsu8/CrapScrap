@@ -1,11 +1,14 @@
+// == ヘッダファイルの読み込み ========
 #include "HelloWorldScene.h"
 #include "cocostudio/CocoStudio.h"
 #include "ui/CocosGUI.h"
 
-USING_NS_CC;
 
+// == 名前空間の指定 ==================
+USING_NS_CC;
 using namespace cocostudio::timeline;
 
+// == メンバ関数の定義 ================
 Scene* HelloWorld::createScene()
 {
     // 'scene' is an autorelease object
@@ -76,7 +79,7 @@ bool HelloWorld::init()
     // add the sprite as a child to this layer
     this->addChild(sprite, 0);
     **/
-    
+
     //////////////////////////////
     // 1. super init first
     if ( !Layer::init() )
@@ -85,6 +88,8 @@ bool HelloWorld::init()
     }
     
     auto rootNode = CSLoader::createNode("MainScene.csb");
+
+	
 
     addChild(rootNode);
 
