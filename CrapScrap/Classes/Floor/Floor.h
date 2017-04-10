@@ -15,7 +15,7 @@ const int PRESS_MAX = (40);
 //チップの最大数
 const int CHIP_MAX = (3600);
 //電池の最大数
-const int DENTI_MAX = (4);
+const int BATTERY_MAX = (4);
 //幅と高さのチップ数
 const int WIDTH = (120);
 const int HEIGHT = (30);
@@ -30,25 +30,25 @@ private:
 	int m_Chip[HEIGHT][WIDTH];
 
 	//
-	cocos2d::Node* m_floor;
+	cocos2d::Node* m_pFloorNode;
 	//
-	cocos2d::Node* m_press[PRESS_MAX];
+	cocos2d::Node* m_pPressNode[PRESS_MAX];
 
 	//床
-	cocos2d::Sprite* floor[FLOOR_MAX];
+	cocos2d::Sprite* m_pFloor[FLOOR_MAX];
 	//プレス
-	cocos2d::Sprite* press[PRESS_MAX * 3];
+	cocos2d::Sprite* m_pPress[PRESS_MAX * 3];
 	//ドア
-	cocos2d::Sprite* door;
+	cocos2d::Sprite* m_pDoor;
 	//電池
-	cocos2d::Sprite* denti[DENTI_MAX];
+	cocos2d::Sprite* m_pBattery[BATTERY_MAX];
 	//コンベア
-	cocos2d::Sprite* leftConbea;
-	cocos2d::Sprite* rightConbea;
+	cocos2d::Sprite* m_pLeftConveyor;
+	cocos2d::Sprite* m_pRightConveyor;
 	//エレベーター
-	cocos2d::Sprite* elevator;
+	cocos2d::Sprite* m_pElevator;
 	//ゴール
-	cocos2d::Sprite* goal;
+	cocos2d::Sprite* m_pGoal;
 	//テスト
 	cocos2d::Sprite* test[32][32];
 
