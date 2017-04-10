@@ -88,5 +88,12 @@ bool HelloWorld::init()
 
     addChild(rootNode);
 
+
+	// ƒvƒŒƒCƒ„‚Ì“o˜^
+	m_player = new Player();
+	this->addChild(m_player);
+
+	m_player->init();
+
     return true;
 }
