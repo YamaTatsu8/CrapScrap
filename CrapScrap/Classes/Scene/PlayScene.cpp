@@ -1,10 +1,17 @@
-//ヘッダファイルの読み込み
+// == ヘッダファイルの読み込み ========
 #include "PlayScene.h"
 #include "ResultScene.h"
 
+// == 名前空間の指定 ==================
 USING_NS_CC;
 
-// 初期化
+//-----------------------------------------------
+//! @brief 初期化処理
+//!
+//! @param[in] なし
+//!
+//! @return 終了状態
+//-----------------------------------------------
 bool PlayScene::init()
 {
 	// 基底クラスの初期化
@@ -15,9 +22,9 @@ bool PlayScene::init()
 	}
 
 	// 背景画像
-	Sprite* background = Sprite::create("play.png");
-	background->setPosition(480, 320);
-	this->addChild(background);
+	Sprite* pBackground = Sprite::create("play.png");
+	pBackground->setPosition(480, 320);
+	this->addChild(pBackground);
 
 	// 毎フレーム更新を有効化
 	scheduleUpdate();
@@ -31,19 +38,42 @@ bool PlayScene::init()
 	return true;
 }
 
-// 毎フレーム更新
+//-----------------------------------------------
+//! @brief 毎フレームの更新処理
+//!
+//! @param[in] 引数
+//!
+//! @return なし
+//-----------------------------------------------
 void PlayScene::update(float delta)
 {
 
 }
 
-// タッチ開始時コールバック
+//-----------------------------------------------
+//! @brief タッチ開始時処理
+//!
+//! @param[in] 引数
+//!
+//! @return 以降のタッチ処理を行うかどうか
+//-----------------------------------------------
 bool PlayScene::onTouchBegan(Touch* touch, Event* pEvent)
+{
+	TransScene();
+	return true;
+}
+
+//-----------------------------------------------
+//! @brief シーン遷移処理
+//!
+//! @param[in] なし
+//!
+//! @return なし
+//-----------------------------------------------
+void PlayScene::TransScene()
 {
 	// 次のシーンを作成する
 	Scene* nextScene = ResultScene::create(GameClear);
 	// 次のシーンに移行
 	_director->replaceScene(nextScene);
-
-	return true;
 }

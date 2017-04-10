@@ -1,0 +1,9 @@
+diff a/CrapScrap/Classes/Scene/ResultScene.h b/CrapScrap/Classes/Scene/ResultScene.h	(rejected hunks)
+@@ -2,7 +2,6 @@
+ // ���d�C���N���[�h�̖h�~
+ #pragma once
+ 
+-// �w�b�_�t�@�C���̓ǂݍ���
+ // == �w�b�_�t�@�C���̓ǂݍ��� ========
+ #include "cocos2d.h"
+ #include "HelloWorldScene.h"

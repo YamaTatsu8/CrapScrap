@@ -1,13 +1,19 @@
-//ヘッダファイルの読み込み
-#include "HelloWorldScene.h"
+// == ヘッダファイルの読み込み ========
 #include "TitleScene.h"
 #include "PlayScene.h"
 #include "TransitionOpen.h"
+#include "HelloWorldScene.h"
 
+// == 名前空間の指定 ==================
 USING_NS_CC;
 
-
-// 初期化
+//-----------------------------------------------
+//! @brief 初期化処理
+//!
+//! @param[in] なし
+//!
+//! @return 終了状態
+//-----------------------------------------------
 bool TitleScene::init()
 {
 	// 基底クラスの初期化
@@ -65,14 +71,39 @@ bool TitleScene::init()
 	return true;
 }
 
-// 毎フレーム更新
+//-----------------------------------------------
+//! @brief 毎フレームの更新処理
+//!
+//! @param[in] 引数
+//!
+//! @return なし
+//-----------------------------------------------
 void TitleScene::update(float delta)
 {
 	
 }
 
-// タッチ開始時コールバック
+//-----------------------------------------------
+//! @brief タッチ開始時処理
+//!
+//! @param[in] 引数
+//!
+//! @return 以降のタッチ処理を行うかどうか
+//-----------------------------------------------
 bool TitleScene::onTouchBegan(Touch* touch, Event* pEvent)
+{
+	TransScene();
+	return true;
+}
+
+//-----------------------------------------------
+//! @brief シーン遷移処理
+//!
+//! @param[in] なし
+//!
+//! @return なし
+//-----------------------------------------------
+void TitleScene::TransScene()
 {
 	// 次のシーンを作成する
 	Scene* nextScene = PlayScene::create();
@@ -80,6 +111,4 @@ bool TitleScene::onTouchBegan(Touch* touch, Event* pEvent)
 	nextScene = TransitionOpen::create(1.0f, nextScene);
 	// 次のシーンに移行
 	_director->replaceScene(nextScene);
-
-	return true;
 }

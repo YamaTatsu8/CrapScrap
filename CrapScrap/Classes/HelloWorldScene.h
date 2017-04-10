@@ -1,3 +1,12 @@
+/* 関数のテンプレート
+//-----------------------------------------------
+//! @brief 処理内容
+//!
+//! @param[in] 引数
+//!
+//! @return 戻り値
+//-----------------------------------------------
+*/
 #ifndef __HELLOWORLD_SCENE_H__
 #define __HELLOWORLD_SCENE_H__
 
@@ -14,12 +23,12 @@ class HelloWorld : public cocos2d::Layer
 {
 public:
 	// メンバ関数 ///////////
-    // there's no 'id' in cpp, so we recommend returning the class instance pointer
+    // シーン作成処理
     static cocos2d::Scene* createScene();
-    // Here's a difference. Method 'init' in cocos2d-x returns bool, instead of returning 'id' in cocos2d-iphone
-    virtual bool init();
-    // implement the "static create()" method manually
-    CREATE_FUNC(HelloWorld);
+	// 初期化処理
+	virtual bool init();
+	// create関数の宣言と定義
+	CREATE_FUNC(HelloWorld);
 };
 
 #endif // __HELLOWORLD_SCENE_H__
