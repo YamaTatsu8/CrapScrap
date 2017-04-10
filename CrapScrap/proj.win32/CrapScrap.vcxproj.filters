@@ -16,6 +16,9 @@
     <Filter Include="src\Floor">
       <UniqueIdentifier>{dfbc2b6e-8043-40c0-9d62-1c23e539959d}</UniqueIdentifier>
     </Filter>
+    <Filter Include="src\Player">
+      <UniqueIdentifier>{2f6e4a32-cf04-47b8-a384-4ba93f092a06}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="main.cpp">
@@ -27,9 +30,6 @@
     <ClCompile Include="..\Classes\HelloWorldScene.cpp">
       <Filter>src</Filter>
     </ClCompile>
-<<<<<<< HEAD
-    <ClCompile Include="..\Classes\Player.cpp">
-=======
     <ClCompile Include="..\Classes\Scene\PlayScene.cpp">
       <Filter>src\Scene</Filter>
     </ClCompile>
@@ -46,8 +46,10 @@
       <Filter>src</Filter>
     </ClCompile>
     <ClCompile Include="..\Classes\Scene\TransitionClose.cpp">
->>>>>>> cdf1002c254d50122a70be6305e9e84e68142d57
       <Filter>src</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Classes\Player\Player.cpp">
+      <Filter>src\Player</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -60,9 +62,6 @@
     <ClInclude Include="..\Classes\HelloWorldScene.h">
       <Filter>src</Filter>
     </ClInclude>
-<<<<<<< HEAD
-    <ClInclude Include="..\Classes\Player.h">
-=======
     <ClInclude Include="..\Classes\Scene\PlayScene.h">
       <Filter>src\Scene</Filter>
     </ClInclude>
@@ -79,8 +78,10 @@
       <Filter>src</Filter>
     </ClInclude>
     <ClInclude Include="..\Classes\Scene\TransitionClose.h">
->>>>>>> cdf1002c254d50122a70be6305e9e84e68142d57
       <Filter>src</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Classes\Player\Player.h">
+      <Filter>src\Player</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

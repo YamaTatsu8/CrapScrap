@@ -12,7 +12,6 @@
 
 // == ヘッダファイルの読み込み ========
 #include "cocos2d.h"
-#include "Player.h"
 
 // == 定数の宣言 ======================
 // ウインドウサイズ
@@ -26,21 +25,10 @@ public:
 	// メンバ関数 ///////////
     // シーン作成処理
     static cocos2d::Scene* createScene();
-<<<<<<< HEAD
-
-    // Here's a difference. Method 'init' in cocos2d-x returns bool, instead of returning 'id' in cocos2d-iphone
-    virtual bool init();
-
-    // implement the "static create()" method manually
-    CREATE_FUNC(HelloWorld);
-
-	Player* m_player;
-=======
 	// 初期化処理
 	virtual bool init();
 	// create関数の宣言と定義
 	CREATE_FUNC(HelloWorld);
->>>>>>> cdf1002c254d50122a70be6305e9e84e68142d57
 };
 
 #endif // __HELLOWORLD_SCENE_H__

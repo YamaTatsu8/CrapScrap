@@ -29,20 +29,22 @@ bool PlayScene::init()
 	// 毎フレーム更新を有効化
 	scheduleUpdate();
 
+	// タッチイベントリスナーを作成
+	EventListenerTouchOneByOne* listener = EventListenerTouchOneByOne::create();
+	listener->onTouchBegan = CC_CALLBACK_2(PlayScene::onTouchBegan, this);
+	_director->getEventDispatcher()->addEventListenerWithSceneGraphPriority(listener, this);
+
 	// インスタンスを生成
 	m_pFloor = new Floor();
 
 	// シーンにつなぐ
 	this->addChild(m_pFloor);
 
-	schedule(CC_CALLBACK_0(Floor::Collapse, m_pFloor), 5.0f, "0");
 	// 初期設定
 	m_pFloor->init();
 
-	// タッチイベントリスナーを作成
-	EventListenerTouchOneByOne* listener = EventListenerTouchOneByOne::create();
-	listener->onTouchBegan = CC_CALLBACK_2(PlayScene::onTouchBegan, this);
-	_director->getEventDispatcher()->addEventListenerWithSceneGraphPriority(listener, this);
+	// プレス機の設定
+	schedule(CC_CALLBACK_0(Floor::Collapse, m_pFloor), 2.0f, "0");
 
 	// 初期化が正常終了
 	return true;
