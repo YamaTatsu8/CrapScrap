@@ -34,53 +34,53 @@ bool Floor::init()
 		{
 		case 1:
 			//1だった場合床を表示
-			floor[floorNum] = CCSprite::create("floor.png");
-			floor[floorNum]->setPosition((i % 120)* CHIP_SIZE + CHIP_SIZE / 2.0f, 960.0f - CHIP_SIZE * (i / 120) - CHIP_SIZE / 2.0f);
+			floor[floorNum] = Sprite::create("floor.png");
+			floor[floorNum]->setPosition((i % WIDTH)* CHIP_SIZE + CHIP_SIZE / 2.0f, 960.0f - CHIP_SIZE * (i / WIDTH) - CHIP_SIZE / 2.0f);
 			m_floor->addChild(floor[floorNum]);
 			floorNum++;
 			break;
 		case 2:
 			//2だった場合プレスを表示
-			press[pressNum] = CCSprite::create("press.png");
-			press[pressNum]->setPosition((i % 120)* CHIP_SIZE + CHIP_SIZE / 2.0f, 960.0f - CHIP_SIZE * (i / 120) - CHIP_SIZE / 2.0f);
+			press[pressNum] = Sprite::create("press.png");
+			press[pressNum]->setPosition((i % WIDTH)* CHIP_SIZE + CHIP_SIZE / 2.0f, 960.0f - CHIP_SIZE * (i / WIDTH) - CHIP_SIZE / 2.0f);
 			m_press[pressNum / 3]->addChild(press[pressNum]);
 			pressNum++;
 			break;
 		case 3:
 			//3だった場合ドアを表示
-			door = CCSprite::create("door.png");
-			door->setPosition((i % 120)* CHIP_SIZE + CHIP_SIZE / 2.0f, 960.0f - CHIP_SIZE * (i / 120) - CHIP_SIZE / 2.0f);
+			door = Sprite::create("door.png");
+			door->setPosition((i % WIDTH)* CHIP_SIZE + CHIP_SIZE / 2.0f, 960.0f - CHIP_SIZE * (i / WIDTH) - CHIP_SIZE / 2.0f);
 			this->addChild(door);
 			break;
 		case 4:
 			//4だった場合電池を表示
-			denti[dentiNum] = CCSprite::create("denti.png");
-			denti[dentiNum]->setPosition(((i % 120)* CHIP_SIZE) + CHIP_SIZE / 2.0f, 960 - CHIP_SIZE * (i / 120) - CHIP_SIZE / 2.0f);
+			denti[dentiNum] = Sprite::create("denti.png");
+			denti[dentiNum]->setPosition(((i % WIDTH)* CHIP_SIZE) + CHIP_SIZE / 2.0f, 960 - CHIP_SIZE * (i / WIDTH) - CHIP_SIZE / 2.0f);
 			this->addChild(denti[dentiNum]);
 			dentiNum++;
 			break;
 		case 5:
 			//5だった場合、左ローラーを表示
-			leftConbea = CCSprite::create("conbea.png");
-			leftConbea->setPosition(((i % 120)* CHIP_SIZE) + CHIP_SIZE / 2.0f, 960 - CHIP_SIZE * (i / 120) - CHIP_SIZE / 2.0f);
+			leftConbea = Sprite::create("conbea.png");
+			leftConbea->setPosition(((i % WIDTH)* CHIP_SIZE) + CHIP_SIZE / 2.0f, 960 - CHIP_SIZE * (i / WIDTH) - CHIP_SIZE / 2.0f);
 			this->addChild(leftConbea);
 			break;
 		case 6:
 			//6だった場合、右ローラーを表示
-			rightConbea = CCSprite::create("conbea.png");
-			rightConbea->setPosition(((i % 120)* CHIP_SIZE) + CHIP_SIZE / 2.0f, 960 - CHIP_SIZE * (i / 120) - CHIP_SIZE / 2.0f);
+			rightConbea = Sprite::create("conbea.png");
+			rightConbea->setPosition(((i % WIDTH)* CHIP_SIZE) + CHIP_SIZE / 2.0f, 960 - CHIP_SIZE * (i / WIDTH) - CHIP_SIZE / 2.0f);
 			this->addChild(rightConbea);
 			break;
 		case 7:
 			//7だった場合エレベーターを表示
-			elevator = CCSprite::create("elevator.png");
-			elevator->setPosition(((i % 120)* CHIP_SIZE) + CHIP_SIZE / 2.0f, 960 - CHIP_SIZE * (i / 120) - CHIP_SIZE / 2.0f);
+			elevator = Sprite::create("elevator.png");
+			elevator->setPosition(((i % WIDTH)* CHIP_SIZE) + CHIP_SIZE / 2.0f, 960 - CHIP_SIZE * (i / WIDTH) - CHIP_SIZE / 2.0f);
 			this->addChild(elevator);
 			break;
 		case 9:
 			//9だった場合ゴールを表示
-			goal = CCSprite::create("goal.png");
-			goal->setPosition(((i % 120)* CHIP_SIZE) + CHIP_SIZE / 2.0f, 960 - CHIP_SIZE * (i / 120) - CHIP_SIZE / 2.0f);
+			goal = Sprite::create("goal.png");
+			goal->setPosition(((i % WIDTH)* CHIP_SIZE) + CHIP_SIZE / 2.0f, 960 - CHIP_SIZE * (i / WIDTH) - CHIP_SIZE / 2.0f);
 			this->addChild(goal);
 			break;
 		default:
@@ -167,10 +167,10 @@ bool Floor::init()
 void Floor::Collapse()
 {
 	static int n = 0;
-	MoveBy* down = MoveBy::create(1.0f, Vec2(0, -960 + CHIP_SIZE));
-	MoveBy* up = MoveBy::create(1.0f, Vec2(0, 960 - CHIP_SIZE));
+	MoveBy* down = MoveBy::create(0.7f, Vec2(0, -960 + CHIP_SIZE));
+	MoveBy* up = MoveBy::create(0.7f, Vec2(0, 960 - CHIP_SIZE));
 
-	m_press[n]->runAction(Sequence::create(down, up, nullptr));
+	m_press[n]->runAction(Sequence::create(down, DelayTime::create(0.1f) , up, nullptr));
 	n++;
 }
 
@@ -230,7 +230,7 @@ void Floor::FloorCollapse()
 //エレベータの上昇
 void Floor::rising()
 {
-	//3秒かけてｙ分上昇する
+	// 上昇するアクション
 	MoveBy* rising = MoveBy::create(3, Vec2(0, 400));
 
 	elevator->runAction(rising);
@@ -251,19 +251,14 @@ void Floor::importData(std::string fileName)
 
 	int i = 0;
 	while (getline(ss, csvLine))
-	{ // 行ごとの処理
-	  // 1行分のストリングストリーム
+	{ 
+		// 行ごとの処理
+		// 1行分のストリングストリーム
 		istringstream csvStream(csvLine);
 		std::string csvCol;
 
 		while (getline(csvStream, csvCol, ','))
-		{ // カンマで分割
-		  // 文字列から数字を検出
-		  //if (atoi(csvCol.c_str()) != 0)
-		  //{
-		  //	// カンマで区切られた数字が取得できている
-		  //	CCLog("%d", atoi(csvCol.c_str()));
-		  //}
+		{
 			m_Chip[i / 120][i % 120] = atoi(csvCol.c_str());
 			i++;
 		}
