@@ -15,89 +15,148 @@ bool Floor::init()
 
 	importData(file);
 
-	int n = 0;
 	int floorNum = 0;
+	int pressNum = 0;
+	int dentiNum = 0;
 
-	for (int i = 0; i < TIP_MAX; i++)
+	m_floor = Node::create();
+	this->addChild(m_floor);
+
+	for (int i = 0; i < PRESS_MAX; i++)
 	{
-		//0だった場合表示しない
-		if (m_Tip[i / 120][i % 120] == 0)
+		m_press[i] = Node::create();
+		this->addChild(m_press[i]);
+	}
+
+	for (int i = 0; i < CHIP_MAX; i++)
+	{
+		switch (m_Chip[i / 120][i % 120])
+		{
+		case 1:
+			//1だった場合床を表示
+			floor[floorNum] = CCSprite::create("floor.png");
+			floor[floorNum]->setPosition((i % 120)* CHIP_SIZE + CHIP_SIZE / 2.0f, 960.0f - CHIP_SIZE * (i / 120) - CHIP_SIZE / 2.0f);
+			m_floor->addChild(floor[floorNum]);
+			floorNum++;
+			break;
+		case 2:
+			//2だった場合プレスを表示
+			press[pressNum] = CCSprite::create("press.png");
+			press[pressNum]->setPosition((i % 120)* CHIP_SIZE + CHIP_SIZE / 2.0f, 960.0f - CHIP_SIZE * (i / 120) - CHIP_SIZE / 2.0f);
+			m_press[pressNum / 3]->addChild(press[pressNum]);
+			pressNum++;
+			break;
+		case 3:
+			//3だった場合ドアを表示
+			door = CCSprite::create("door.png");
+			door->setPosition((i % 120)* CHIP_SIZE + CHIP_SIZE / 2.0f, 960.0f - CHIP_SIZE * (i / 120) - CHIP_SIZE / 2.0f);
+			this->addChild(door);
+			break;
+		case 4:
+			//4だった場合電池を表示
+			denti[dentiNum] = CCSprite::create("denti.png");
+			denti[dentiNum]->setPosition(((i % 120)* CHIP_SIZE) + CHIP_SIZE / 2.0f, 960 - CHIP_SIZE * (i / 120) - CHIP_SIZE / 2.0f);
+			this->addChild(denti[dentiNum]);
+			dentiNum++;
+			break;
+		case 5:
+			//5だった場合、左ローラーを表示
+			leftConbea = CCSprite::create("conbea.png");
+			leftConbea->setPosition(((i % 120)* CHIP_SIZE) + CHIP_SIZE / 2.0f, 960 - CHIP_SIZE * (i / 120) - CHIP_SIZE / 2.0f);
+			this->addChild(leftConbea);
+			break;
+		case 6:
+			//6だった場合、右ローラーを表示
+			rightConbea = CCSprite::create("conbea.png");
+			rightConbea->setPosition(((i % 120)* CHIP_SIZE) + CHIP_SIZE / 2.0f, 960 - CHIP_SIZE * (i / 120) - CHIP_SIZE / 2.0f);
+			this->addChild(rightConbea);
+			break;
+		case 7:
+			//7だった場合エレベーターを表示
+			elevator = CCSprite::create("elevator.png");
+			elevator->setPosition(((i % 120)* CHIP_SIZE) + CHIP_SIZE / 2.0f, 960 - CHIP_SIZE * (i / 120) - CHIP_SIZE / 2.0f);
+			this->addChild(elevator);
+			break;
+		case 9:
+			//9だった場合ゴールを表示
+			goal = CCSprite::create("goal.png");
+			goal->setPosition(((i % 120)* CHIP_SIZE) + CHIP_SIZE / 2.0f, 960 - CHIP_SIZE * (i / 120) - CHIP_SIZE / 2.0f);
+			this->addChild(goal);
+			break;
+		default:
+			break;
+		}
+		/*
+		if (m_Chip[i / 120][i % 120] == 0)
 		{
 
 		}
-		else if (m_Tip[i / 120][i % 120] == 1)
+		else if (m_Chip[i / 120][i % 120] == 1)
 		{
 			//1だった場合床を表示
-			m_floor[floorNum] = Node::create();
-			m_floor[floorNum]->setPosition((i % 120)*32.0f, 960.0f - 32 * (i / 120));
-			this->addChild(m_floor[floorNum]);
-
 			floor[floorNum] = CCSprite::create("floor.png");
-			floor[floorNum]->setPositionX((i % 120)*32.0f);
-			floor[floorNum]->setPositionY(960.0f - 32 * (i / 120));
+			floor[floorNum]->setPositionX((i % 120)* CHIP_SIZE + CHIP_SIZE / 2.0f);
+			floor[floorNum]->setPositionY(960.0f - CHIP_SIZE * (i / 120) - CHIP_SIZE / 2.0f);
 
-			m_floor[floorNum]->addChild(floor[floorNum]);
+			m_floor->addChild(floor[floorNum]);
 			floorNum++;
 		}
-		else if (m_Tip[i / 120][i % 120] == 2)
+		else if (m_Chip[i / 120][i % 120] == 2)
 		{
-			m_press[i] = Node::create();
-			m_press[i]->setPosition((i % 120)*32.0f, 960.0f - 32 * (i / 120));
-			this->addChild(m_press[i]);
-
 			//2だった場合プレスを表示
 			press[i] = CCSprite::create("press.png");
-			press[i]->setPositionX((i % 120)*32.0f);
-			press[i]->setPositionY(960.0f - 32 * (i / 120));
-			m_floor[i]->addChild(press[i]);
+			press[i]->setPositionX((i % 120)* CHIP_SIZE + CHIP_SIZE / 2.0f);
+			press[i]->setPositionY(960.0f - CHIP_SIZE * (i / 120) - CHIP_SIZE / 2.0f);
+			m_press->addChild(press[i]);
 		}
-		else if (m_Tip[i / 120][i % 120] == 3)
+		else if (m_Chip[i / 120][i % 120] == 3)
 		{
 			//3だった場合ドアを表示
 			door = CCSprite::create("door.png");
-			door->setPosition((i % 120)*32.0f, 960.0f - 32 * (i / 120));
+			door->setPosition((i % 120)* CHIP_SIZE + CHIP_SIZE / 2.0f, 960.0f - CHIP_SIZE * (i / 120) - CHIP_SIZE / 2.0f);
 			this->addChild(door);
 		}
-		else if (m_Tip[i / 120][i % 120] == 4)
+		else if (m_Chip[i / 120][i % 120] == 4)
 		{
 			//4だった場合電池を表示
 			denti[n] = CCSprite::create("denti.png");
-			denti[n]->setPosition(((i % 120)*32.0f), 960 - 32 * (i / 120));
+			denti[n]->setPosition(((i % 120)* CHIP_SIZE) + CHIP_SIZE / 2.0f, 960 - CHIP_SIZE * (i / 120) - CHIP_SIZE / 2.0f);
 			this->addChild(denti[n]);
 			n++;
 		}
-		else if (m_Tip[i / 120][i % 120] == 5)
+		else if (m_Chip[i / 120][i % 120] == 5)
 		{
 			//5だった場合、左ローラーを表示
 			leftConbea = CCSprite::create("conbea.png");
-			leftConbea->setPosition(((i % 120)*32.0f), 960 - 32 * (i / 120));
+			leftConbea->setPosition(((i % 120)* CHIP_SIZE) + CHIP_SIZE / 2.0f, 960 - CHIP_SIZE * (i / 120) - CHIP_SIZE / 2.0f);
 			this->addChild(leftConbea);
 		}
-		else if (m_Tip[i / 120][i % 120] == 6)
+		else if (m_Chip[i / 120][i % 120] == 6)
 		{
 			//6だった場合、右ローラーを表示
 			rightConbea = CCSprite::create("conbea.png");
-			rightConbea->setPosition(((i % 120)*32.0f), 960 - 32 * (i / 120));
+			rightConbea->setPosition(((i % 120)* CHIP_SIZE) + CHIP_SIZE / 2.0f, 960 - CHIP_SIZE * (i / 120) - CHIP_SIZE / 2.0f);
 			this->addChild(rightConbea);
 		}
-		else if (m_Tip[i / 120][i % 120] == 7)
+		else if (m_Chip[i / 120][i % 120] == 7)
 		{
 			//7だった場合エレベーターを表示
 			elevator = CCSprite::create("elevator.png");
-			elevator->setPosition(((i % 120)*32.0f), 960 - 32 * (i / 120));
+			elevator->setPosition(((i % 120)* CHIP_SIZE) + CHIP_SIZE / 2.0f, 960 - CHIP_SIZE * (i / 120) - CHIP_SIZE / 2.0f);
 			this->addChild(elevator);
 		}
-		else if (m_Tip[i / 120][i % 120] == 8)
+		else if (m_Chip[i / 120][i % 120] == 8)
 		{
 			//空白のため無し
 		}
-		else if (m_Tip[i / 120][i % 120] == 9)
+		else if (m_Chip[i / 120][i % 120] == 9)
 		{
 			//9だった場合ゴールを表示
 			goal = CCSprite::create("goal.png");
-			goal->setPosition(((i % 120)*32.0f), 960 - 32 * (i / 120));
+			goal->setPosition(((i % 120)* CHIP_SIZE) + CHIP_SIZE / 2.0f, 960 - CHIP_SIZE * (i / 120) - CHIP_SIZE / 2.0f);
 			this->addChild(goal);
 		}
+		*/
 	}
 
 
@@ -105,18 +164,14 @@ bool Floor::init()
 }
 
 //プレス機が落ちてくる
-void Floor::Collapse(int num)
+void Floor::Collapse()
 {
-	int i = 0;
+	static int n = 0;
+	MoveBy* down = MoveBy::create(1.0f, Vec2(0, -960 + CHIP_SIZE));
+	MoveBy* up = MoveBy::create(1.0f, Vec2(0, 960 - CHIP_SIZE));
 
-	for (i = 0; i < PRESS_MAX; i++)
-	{
-		press[i];
-	}
-
-	MoveBy* down = MoveBy::create(10.0f, Vec2(0, 960));
-
-	press[i]->runAction(down);
+	m_press[n]->runAction(Sequence::create(down, up, nullptr));
+	n++;
 }
 
 //床の消失
@@ -124,23 +179,25 @@ void Floor::FloorCollapse()
 {
 	int i = 0;
 	Rect rect_floor[FLOOR_MAX];
-	Rect rect_press[PRESS_MAX];
+	Rect rect_press[PRESS_MAX * 3];
 
+	Node* parent;
+	parent = m_floor->getParent();
 	for ( i = 0; i < FLOOR_MAX; i++)
 	{
 		rect_floor[i] = floor[i]->getBoundingBox();
+		rect_floor[i] = RectApplyAffineTransform(rect_floor[i], parent->getNodeToWorldAffineTransform());
 	}
-	for ( i = 0; i < PRESS_MAX; i++)
+	for (int i = 0; i < PRESS_MAX; i++)
 	{
-		rect_press[i] = press[i]->getBoundingBox();
+		parent = m_press[i]->getParent();
+		for (int j = 0; j < PRESS_MAX * 3; i++)
+		{
+			rect_press[j] = press[j]->getBoundingBox();
+			rect_press[j] = RectApplyAffineTransform(rect_press[j], parent->getNodeToWorldAffineTransform());
+		}
 	}
-
-	Node* parent[2000];
-	parent[i] = m_floor[i]->getParent();
-	rect_floor[i] = RectApplyAffineTransform(rect_floor[i], parent[i]->getNodeToWorldAffineTransform());
 	
-	parent[i] = m_press[i]->getParent();
-	rect_press[i] = RectApplyAffineTransform(rect_press[i], parent[i]->getNodeToWorldAffineTransform());
 
 	//矩形どうしの当たり判定
 	bool hit = rect_floor[i].intersectsRect(rect_press[i]);
@@ -207,7 +264,7 @@ void Floor::importData(std::string fileName)
 		  //	// カンマで区切られた数字が取得できている
 		  //	CCLog("%d", atoi(csvCol.c_str()));
 		  //}
-			m_Tip[i / 120][i % 120] = atoi(csvCol.c_str());
+			m_Chip[i / 120][i % 120] = atoi(csvCol.c_str());
 			i++;
 		}
 	}

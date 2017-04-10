@@ -4,10 +4,14 @@
 // == ヘッダファイルの読み込み ========
 #include "cocos2d.h"
 #include "HelloWorldScene.h"
+#include "Floor\Floor.h"
 
 // == クラスの宣言 ====================
 class PlayScene : public cocos2d::Scene
 {
+	// インスタンス
+	Floor* m_pFloor;
+
 public:
 	// メンバ関数 ///////////
 	// create関数の宣言と定義
