@@ -107,7 +107,6 @@ void TitleScene::TransScene()
 {
 	// 次のシーンを作成する
 	Scene* nextScene = PlayScene::create();
-
 	nextScene = TransitionOpen::create(1.0f, nextScene);
 	// 次のシーンに移行
 	_director->replaceScene(nextScene);

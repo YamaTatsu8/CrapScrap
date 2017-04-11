@@ -62,6 +62,9 @@ public:
 	//初期化処理
 	bool init();
 
+	// 毎フレームの更新処理
+	void update(float delta) override;
+	
 	//プレスが当たったら崩れる
 	void Collapse();
 
@@ -74,4 +77,6 @@ public:
 	//床の消失
 	void FloorCollapse();
 
+	//
+	bool isCollision(cocos2d::Rect rect);
 };

@@ -12,6 +12,7 @@
 //#include "ui/CocosGUI.h"
 #include "cocostudio/CocoStudio.h"
 #include "Player.h"
+#include "Scene\PlayScene.h"
 
 // cocos2d-xの名前空間
 USING_NS_CC; 
@@ -19,10 +20,12 @@ using namespace cocostudio;
 using namespace ui;
 
 
-const int バッテリ分子 = 300;
+const int バッテリ分子 = 3000;
 const int バッテリ分母 = 1;			/* グラフィックの幅が300なので、分子/分母が300になるように */
 const int empty = 37;
 
+bool Player::isApplyGravity;
+float Player::m_movement;
 
 ////////////////////////////
 /// プレイヤクラスの宣言 ///
@@ -52,7 +55,7 @@ bool Player::init()
 	// バッテリーの初期量
 	m_consume = バッテリ分子;
 
-
+	isApplyGravity = true;
 
 	////////////////////////
 	///	スプライトの設定 ///
@@ -160,6 +163,7 @@ bool Player::init()
 	jumpButton->addClickEventListener(CC_CALLBACK_1(Player::buttonJump, this));
 	actionButton->addTouchEventListener(CC_CALLBACK_1(Player::buttonAction, this));
 
+
 	return true;
 }
 
@@ -189,9 +193,20 @@ void Player::update(float delta)
 	// バッテリが残ってたら毎フレームプレイヤの座標を現在の位置へ更新
 	if (m_battery > empty)
 	{
-		m_playerPos += Vec2(m_movement, 0.0f);			/* m_movementはボタンを押している間のみ値が入る */
+		m_playerPos += Vec2(Player::m_movement, 0.0f);			/* m_movementはボタンを押している間のみ値が入る */
 		players->setPositionX(m_playerPos.x);
+		PlayScene::m_pCamera->setPositionX(PlayScene::m_pCamera->getPositionX() + m_movement);
+		this->setPositionX(this->getPositionX() + m_movement);
+
+		//PlayScene::m_pCamera->lookAt();
 	}
+
+	//// プレイヤーに重力をかける
+	//if (isApplyGravity)
+	//{
+	//	m_playerPos.y += -8.0f;
+	//	players->setPositionY(m_playerPos.y);
+	//}
 
 	// 30フレームでプレイヤ画像の切り替え
 	if (m_frontback)
@@ -256,6 +271,20 @@ void Player::update(float delta)
 
 }
 
+////----------------------------------------------------------------------
+////! @関数名：GetRect
+////!
+////! @役割：矩形を取得する。
+////!
+////! @引数：なし(void)
+////!
+////! @戻り値：プレイヤの矩形(Rect)
+////----------------------------------------------------------------------
+cocos2d::Rect Player::GetRect()
+{
+	return player->getBoundingBox();
+}
+
 
 ////----------------------------------------------------------------------
 ////! @関数名：rightButtonMove
@@ -273,7 +302,7 @@ void Player::rightButtonMove(Ref* ref, cocos2d::ui::Widget::TouchEventType event
 		// 押した時
 	case ui::Widget::TouchEventType::BEGAN:
 		// 押したら移動量に値を代入
-		m_movement = 5.0f;
+		Player::m_movement = 5.0f;
 		break;
 
 		// 動かした時
@@ -284,17 +313,17 @@ void Player::rightButtonMove(Ref* ref, cocos2d::ui::Widget::TouchEventType event
 		// 離した時
 	case ui::Widget::TouchEventType::ENDED:
 		// 離したら移動量を０に
-		m_movement = 0.0f;
+		Player::m_movement = 0.0f;
 		break;
 
 		// キャンセルされた時・ボタン上でないところで離されること
 	case ui::Widget::TouchEventType::CANCELED:
 		// ボタンの外でも離したら移動量を０に
-		m_movement = 0.0f;
+		Player::m_movement = 0.0f;
 		break;
 
 	default:
-		m_movement = 0.0f;
+		Player::m_movement = 0.0f;
 		break;
 	}
 
@@ -318,7 +347,7 @@ void Player::leftButtonMove(Ref * ref, cocos2d::ui::Widget::TouchEventType event
 		// 押した時
 	case ui::Widget::TouchEventType::BEGAN:
 		// 押したら移動量に値を代入
-		m_movement = -5.0f;
+		Player::m_movement = -5.0f;
 		break;
 
 		// 動かした時
@@ -329,18 +358,18 @@ void Player::leftButtonMove(Ref * ref, cocos2d::ui::Widget::TouchEventType event
 		// 離した時
 	case ui::Widget::TouchEventType::ENDED:
 		// 離したら移動量を０に
-		m_movement = 0.0f;
+		Player::m_movement = 0.0f;
 		break;
 
 		// キャンセルされた時・ボタン上でないところで離されること
 	case ui::Widget::TouchEventType::CANCELED:
 
 		// ボタンの外でも離したら移動量を０に
-		m_movement = 0.0f;
+		Player::m_movement = 0.0f;
 		break;
 
 	default:
-		m_movement = 0.0f;
+		Player::m_movement = 0.0f;
 		break;
 	}
 
@@ -362,9 +391,14 @@ bool Player::buttonJump(Ref * ref)
 	{
 		if (!actionNow)
 		{
-			JumpBy* jumping = JumpBy::create(0.5f, Vec2(0.0f, 0.0f), m_jumping, 1);
+			MoveBy* jumping = MoveBy::create(0.2f, Vec2(0.0f, m_jumping));
 			// ジャンプモーションを非表示
 			players->runAction(jumping);
+			isApplyGravity = false;
+			CallFuncAfter(0.2f, [&]()
+			{
+				isApplyGravity = true;
+			});
 		}
 	}
 

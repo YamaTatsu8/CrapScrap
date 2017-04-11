@@ -5,6 +5,9 @@
 // == 名前空間の指定 ==================
 USING_NS_CC;
 
+// ==
+cocos2d::Camera* PlayScene::m_pCamera;
+
 //-----------------------------------------------
 //! @brief 初期化処理
 //!
@@ -20,6 +23,9 @@ bool PlayScene::init()
 		// 基底クラスの初期化が失敗なら、異常終了
 		return false;
 	}
+
+	////	カメラの実装
+	PlayScene::m_pCamera = this->getDefaultCamera();
 
 	// 背景画像
 	Sprite* pBackground = Sprite::create("play.png");
@@ -62,7 +68,11 @@ bool PlayScene::init()
 //-----------------------------------------------
 void PlayScene::update(float delta)
 {
-
+	//	地面にあたっていたら重力を消す
+	if (m_pFloor->isCollision(m_pPlayer->GetRect()))
+	{
+		Player::isApplyGravity = false;
+	}
 }
 
 //-----------------------------------------------
@@ -74,7 +84,6 @@ void PlayScene::update(float delta)
 //-----------------------------------------------
 bool PlayScene::onTouchBegan(Touch* touch, Event* pEvent)
 {
-	TransScene();
 	return true;
 }
 

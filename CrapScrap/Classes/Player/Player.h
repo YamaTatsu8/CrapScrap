@@ -24,8 +24,6 @@
 class Player : public cocos2d::Layer
 {
 private:
-	// 移動量
-	float m_movement;
 
 	// ジャンプの高さ
 	float m_jumping;
@@ -45,6 +43,7 @@ private:
 	// プレイヤの画像が一枚目か二枚目か
 	bool m_frontback;
 
+
 	// プレイヤの現在位置
 	cocos2d::Vec2 m_playerPos;
 
@@ -58,6 +57,9 @@ public:
 
 	// 更新
 	void update(float delta);
+
+	// 矩形を取得
+	cocos2d::Rect GetRect();
 
 	//////////////////////////////
 	/// コールバック関数の宣言 ///
@@ -77,6 +79,7 @@ public:
 	//////////////////////////////
 
 	// プレイヤ
+	cocos2d::Node* playerNode;
 	cocos2d::Sprite* player;
 	// プレイヤ（ニュートラルモーション用）
 	cocos2d::Sprite* player2;
@@ -98,6 +101,20 @@ public:
 	cocos2d::Node* players;
 	//// バッテリ全体
 	//cocos2d::Node* battery;
+
+	// 静的メンバ ///////////
+	// 重力を適用するかどうか
+	static bool isApplyGravity;
+
+	// 移動量
+	static float m_movement;
+
+	// 関数の遅延実行
+	void CallFuncAfter(const float& delay, const std::function<void()>& func)
+	{
+		runAction(cocos2d::Sequence::create
+		(cocos2d::DelayTime::create(delay), cocos2d::CallFunc::create(func), nullptr));
+	}
 
 };
 

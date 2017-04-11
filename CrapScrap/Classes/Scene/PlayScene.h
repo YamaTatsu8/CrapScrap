@@ -13,7 +13,6 @@ class PlayScene : public cocos2d::Scene
 	// インスタンス
 	Floor* m_pFloor;
 	Player* m_pPlayer;
-
 public:
 	// メンバ関数 ///////////
 	// create関数の宣言と定義
@@ -27,4 +26,7 @@ public:
 
 	// タッチ時の処理
 	bool onTouchBegan(cocos2d::Touch * touch, cocos2d::Event * pEvent);
+
+	static cocos2d::Camera* m_pCamera;
+
 };
